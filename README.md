@@ -99,3 +99,58 @@ entrada e saída).
 - Todos os computadores têm dispositivos físicos para obter entradas e produzir saídas. Afinal, para que servi-ria um computador se os usuários não pudessem dizer a ele o que fazer e não pudessem receber os resultados após ele ter feito o trabalho pedido? Existem muitos ti-pos de dispositivos de entrada e de saída, incluindo te-clados, monitores, impressoras e assim por diante. Cabe ao sistema operacional gerenciá-los. Em consequência, todo sistema operacional tem um subsistema de E/S para gerenciar os dispositivos de E/S. Alguns softwares de E/S são independentes do dispo-sitivo, isto é, aplicam-se igualmente bem a muitos ou a todos dispositivos de E/S. Outras partes dele, como drivers de dispositivo, são específicos a dispositivos de E/S particulares.
 
 ## 1.5.6 - O interpretador de comandos (shell)
+- o sistema operacional é o código que executa as chamadas de sistema. Editores, compiladores, montadores, ligadores (linkers), programas utilitários e interpretado-res de comandos definitivamente não fazem parte do sis-tema operacional, mesmo que sejam importantes e úteis. Correndo o risco de confundir as coisas de certa maneira, nesta seção examinaremos brevemente o interpretador de comandos UNIX, o shell. Embora não faça parte do sistema operacional, ele faz um uso intensivo de muitos aspectos do sistema operacional e serve assim como um bom exemplo de como as chamadas de sistema são usa-das. Ele também é a principal interface entre um usuário sentado no seu terminal e o sistema operacional, a não ser que o usuário esteja usando uma interface de usuário gráfica.
+
+<br>
+
+# 1.6 - **Chamadas ao sistema**
+
+## Conceito inicial
+- Em sistemas operacionais, as chamadas de sistema (também conhecidas como system calls) são interfaces fornecidas pelo sistema operacional que permitem que os programas de aplicação solicitem serviços e recursos do sistema operacional. Elas são a maneira pela qual os programas de usuário interagem com o kernel do sistema operacional.
+- Quando um programa de aplicação precisa executar uma operação que requer acesso privilegiado ou serviços oferecidos pelo sistema operacional, ele faz uma chamada de sistema específica para solicitar essas ações. Essas chamadas podem incluir operações como leitura ou escrita em arquivos, criação de processos, alocação de memória, acesso a dispositivos de entrada e saída, entre outras.
+- As chamadas de sistema fornecem uma abstração para os programas de aplicação, permitindo que eles utilizem as funcionalidades do sistema operacional de maneira segura e controlada. Quando uma chamada de sistema é feita, o programa de usuário transfere o controle para o kernel do sistema operacional, que executa a operação solicitada em nome do programa e retorna os resultados apropriados.
+- As chamadas de sistema são uma parte fundamental dos sistemas operacionais e desempenham um papel importante na execução de tarefas do sistema, garantindo a segurança e a proteção dos recursos do sistema, bem como a interação entre os programas de usuário e o sistema operacional.
+- As principais funções do kernel são:
+    1.Tratamento de interrupções e exceções
+    1.Criação e eliminação de processos
+    1.Sincronização e comunicação entre processos
+    1.Escalonamento e controle dos processos
+    1.Gerência de memória
+    1.Gerência do sistema de arquivos
+    1.Gerência de dispositivos de E/S
+    1.Suporte a redes locais e distribuídas
+    1.Segurança do sistema
+
+
+## 1.6.1 - Chamadas de sistema para gerenciamento de processos
+- As chamadas de sistema para gerenciamento de processos permitem que os programas de aplicação interajam com o sistema operacional para criar, controlar e manipular processos. Essas chamadas de sistema fornecem os meios para criar novos processos, encerrar processos existentes, obter informações sobre processos em execução, sincronizar processos e realizar operações relacionadas ao escalonamento e comunicação entre processos. Abaixo estão algumas das principais chamadas de sistema relacionadas ao gerenciamento de processos:
+    1. **Fork:** A chamada de sistema fork é usada para criar um novo processo, que é uma cópia exata do processo pai. O processo filho começa a partir do ponto em que o fork foi chamado, e ambos o processo pai e o processo filho continuam a execução a partir desse ponto, mas com identificadores de processo (PID) diferentes.
+    1. **Exec:** As chamadas de sistema exec são usadas para substituir o código de um processo pelo código de outro programa. Elas permitem que um processo inicie a execução de um novo programa, carregando-o na memória e substituindo seu próprio código. Existem várias variantes dessa chamada, como execve, execl, execvp, entre outras.
+    1. **Wait:** A chamada de sistema wait é usada para suspender a execução de um processo pai até que um de seus processos filhos termine a execução. Isso permite que o processo pai aguarde a conclusão de um processo filho específico ou qualquer processo filho.
+    1. **Exit:** A chamada de sistema exit é usada para terminar a execução de um processo. Quando um processo chama exit, ele é encerrado e todos os recursos associados a ele são liberados pelo sistema operacional.
+    1. **Kill:** A chamada de sistema kill é usada para enviar um sinal para um processo específico ou grupo de processos. Os sinais são usados para notificar os processos sobre eventos ou solicitar a execução de ações específicas.
+    1. **Scheduling:** As chamadas de sistema relacionadas ao escalonamento de processos permitem que um processo solicite mudanças na prioridade de escalonamento, aguarde por um certo período de tempo ou bloqueie sua execução até que uma condição específica seja atendida.
+    - Essas são apenas algumas das chamadas de sistema relacionadas ao gerenciamento de processos. Elas fornecem as ferramentas necessárias para criar, controlar e coordenar a execução de processos em um sistema operacional. Cada sistema operacional pode ter suas próprias chamadas de sistema específicas, mas os conceitos básicos de criação, término, sincronização e comunicação de processos são amplamente utilizados em diferentes sistemas operacionais.
+
+
+## 1.6.2 Chamadas de sistema para gerenciamento de arquivos
+- As chamadas de sistema para gerenciamento de arquivos permitem que os programas de aplicação interajam com o sistema operacional para criar, abrir, ler, gravar, renomear, mover e excluir arquivos. Essas chamadas de sistema fornecem as funcionalidades necessárias para manipular arquivos e diretórios em um sistema de armazenamento. Aqui estão algumas das principais chamadas de sistema relacionadas ao gerenciamento de arquivos:
+    1. **Create:** A chamada de sistema create é usada para criar um novo arquivo com um determinado nome. Ela retorna um identificador de arquivo que pode ser usado para operações subsequentes no arquivo.
+    1. **Open:** A chamada de sistema open é usada para abrir um arquivo existente. Ela também retorna um identificador de arquivo para permitir operações adicionais no arquivo.
+    1. **Read:** A chamada de sistema read é usada para ler uma quantidade específica de dados de um arquivo aberto para um buffer na memória do programa.
+    1. **Write:** A chamada de sistema write é usada para escrever uma quantidade específica de dados de um buffer na memória para um arquivo aberto.
+    1. **Close:** A chamada de sistema close é usada para fechar um arquivo aberto, liberando recursos associados a ele e indicando que nenhuma outra operação será realizada nele.
+    1. **Rename:** A chamada de sistema rename é usada para renomear um arquivo existente, alterando o nome pelo qual ele é conhecido no sistema de arquivos.
+    1. **Delete:** A chamada de sistema delete é usada para excluir um arquivo existente do sistema de arquivos.
+    1. **Seek:** A chamada de sistema seek é usada para reposicionar o ponteiro de leitura/escrita em um arquivo aberto, permitindo acesso aleatório a diferentes partes do arquivo.
+    - Essas são apenas algumas das chamadas de sistema relacionadas ao gerenciamento de arquivos. Elas permitem que os programas de aplicação acessem, criem, modifiquem e excluam arquivos no sistema de armazenamento controlado pelo sistema operacional. Cada sistema operacional pode ter suas próprias chamadas de sistema específicas, mas os conceitos básicos de manipulação de arquivos são amplamente utilizados em diferentes sistemas operacionais.
+
+# 1.6.3 - Chamadas de sistema para gerenciamento de diretórios
+- As chamadas de sistema para gerenciamento de diretórios permitem que os programas de aplicação interajam com o sistema operacional para criar, abrir, ler, gravar, renomear, mover e excluir diretórios. Essas chamadas de sistema fornecem as funcionalidades necessárias para manipular a estrutura de diretórios em um sistema de arquivos. Aqui estão algumas das principais chamadas de sistema relacionadas ao gerenciamento de diretórios:
+1. **Create Directory:** A chamada de sistema mkdir é usada para criar um novo diretório com um determinado nome dentro de um diretório existente.
+1. **Open Directory:** A chamada de sistema opendir é usada para abrir um diretório existente, permitindo a leitura dos arquivos e subdiretórios contidos nele.
+1. **Read Directory:** A chamada de sistema readdir é usada para ler o próximo arquivo ou subdiretório em um diretório aberto. Ela retorna informações sobre o arquivo, como nome e tipo.
+1. **Write Directory:** Geralmente, os sistemas operacionais não oferecem uma chamada de sistema específica para gravar diretórios, pois a estrutura e organização dos diretórios são gerenciadas automaticamente pelo sistema operacional.
+1. **Rename Directory:** A chamada de sistema rename também pode ser usada para renomear diretórios existentes, alterando o nome pelo qual eles são conhecidos no sistema de arquivos.
+1. **Delete Directory:** A chamada de sistema rmdir é usada para excluir um diretório existente, desde que esteja vazio, ou seja, não contenha nenhum arquivo ou subdiretório.
+- Essas são algumas das chamadas de sistema comumente usadas para o gerenciamento de diretórios. Elas permitem que os programas de aplicação criem, naveguem e manipulem diretórios dentro do sistema de arquivos controlado pelo sistema operacional. É importante observar que as chamadas de sistema podem variar dependendo do sistema operacional específico, mas os conceitos básicos de manipulação de diretórios são amplamente utilizados em diferentes sistemas operacionais.
