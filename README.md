@@ -37,8 +37,50 @@ entrada e saída).
 # **1.3 - Revisão de hardware de computadores**
 
 ## 1.3.1 - Processadores
+- O “cérebro” do computador é a CPU. Ela busca instruções da memória e as executa. O ciclo básico de toda CPU é buscar a primeira instrução da memória, decodificá-la para determinar o seu tipo e operandos, executá- -la, e então buscar, decodificar e executar as instruções subsequentes. O ciclo é repetido até o programa terminar. É dessa maneira que os programas são executados
+- Como o tempo para acessar a memória para buscar uma instrução ou palavra dos operandos é muito maior do que o tempo para executar uma instrução, todas as CPUs têm alguns  registradores internos para armazenamento de variáveis e resultados temporários. Desse modo, o conjunto de instruções geralmente contém instruções para carregar uma palavra da memória para um registrador e armazenar uma palavra de um registrador para a memória.
+- **Multithreading ou Hyperthreading:**  Para uma primeira aproximação, o que ela faz é permitir que a CPU mantenha o estado de dois threads diferentes e então faça o chaveamento entre um e outro em uma escala de tempo de nanossegundos.
 
+## 1.3.2 - Memória
+- O segundo principal componente em qualquer computador é a memória. Idealmente, uma memória deve ser rápida ao extremo (mais rápida do que executar uma instrução, de maneira que a CPU não seja atrasada pela memória), abundantemente grande e muito barata. Nenhuma tecnologia atual satisfaz todas essas metas, assim uma abordagem diferente é tomada. 
 
+## 1.3.3 - Discos
+- Em seguida na hierarquia está o disco magnético (disco rígido). O armazenamento de disco é duas ordens de magnitude mais barato, por bit, que o da RAM e frequentemente duas ordens de magnitude maior também. O único problema é que o tempo para acessar aleatoriamente os dados é próximo de três ordens de magnitude mais lento. Isso ocorre porque o disco é um dispositivo mecânico.
+- Às vezes você ouvirá as pessoas falando sobre discos que não são discos de maneira alguma, como os SSDs (Solid State Disks — discos em estado sólido). SSDs não têm partes móveis, não contêm placas na forma de discos e armazenam dados na memória (flash). A única maneira pela qual lembram discos é que eles também armazenam uma quantidade grande de dados que não é perdida quando a energia é desligada. 
 
+## 1.3.4 - Dispositivos de E/S
+- Dispositivos de entrada e saída são componentes físicos ou virtuais de um sistema computacional que permitem a interação entre o usuário e o sistema operacional, permitindo a entrada de dados para o sistema e a saída de resultados ou informações do sistema. Dispositivos de entrada são utilizados para enviar dados ou comandos para o sistema operacional. Alguns exemplos comuns de dispositivos de entrada são:
+    1. Teclado: Permite a entrada de caracteres, comandos e outras informações por meio de teclas.
+    1. Mouse: É usado para mover o cursor na tela e realizar seleções ou interações com elementos gráficos.
+    1. Scanner: Permite digitalizar documentos e converter informações em formato digital.
+    1. Microfone: Usado para capturar sons e entrada de áudio.
+    1. Sensores: Dispositivos como sensores de temperatura, acelerômetros, leitores de código de barras, entre outros, podem ser usados como dispositivos de entrada para fornecer dados ao sistema operacional.
+- Por outro lado, dispositivos de saída são responsáveis por exibir os resultados, informações ou sinais gerados pelo sistema operacional. Alguns exemplos de dispositivos de saída são:
+    1. Monitor ou tela: Exibe informações, gráficos, vídeos e interface do usuário.
+    1. Impressora: Gera cópias físicas de documentos ou imagens.
+    1. Alto-falantes ou fones de ouvido: Produzem saída de áudio, reproduzindo sons ou música. 
+    1. Dispositivos de exibição tátil (touchscreen): Permitem interações diretas com a interface do usuário por meio de toques na tela.
+    1. Dispositivos de rede: Permitem a transmissão de dados do sistema para outros dispositivos, como modems, roteadores, placas de rede, etc.
+- O sistema operacional é responsável por gerenciar a comunicação entre o software e os dispositivos de entrada e saída. Ele fornece interfaces e drivers necessários para garantir que os dispositivos possam ser utilizados corretamente pelos aplicativos e pelos usuários. Dessa forma, os dispositivos de entrada e saída são essenciais para a interação e o funcionamento dos sistemas operacionais.
+
+## 1.3.5 - Barramentos
+- Em sistemas operacionais, os barramentos referem-se a um conjunto de linhas de comunicação físicas ou virtuais que permitem a transferência de dados entre os componentes de hardware do computador. Eles são canais de comunicação que conectam a unidade central de processamento (CPU), a memória, os dispositivos de entrada/saída e outros componentes do sistema. Existem diferentes tipos de barramentos em um sistema computacional, cada um com uma função específica. Aqui estão alguns dos barramentos comumente encontrados:
+    1. Barramento do sistema (system bus): É o barramento principal que conecta a CPU à memória e outros dispositivos principais. Ele permite a transferência de dados, endereços e sinais de controle entre esses componentes. O barramento do sistema inclui o barramento de dados (data bus), o barramento de endereço (address bus) e o barramento de controle (control bus).
+    1. Barramento de dados (data bus): É usado para a transferência de dados entre a CPU, a memória e os dispositivos de entrada/saída. Ele carrega os bits de dados que são processados pela CPU ou transmitidos entre diferentes componentes.
+    1. Barramento de endereço (address bus): É responsável por transportar os endereços de memória que são usados para identificar a localização dos dados ou instruções na memória. Ele permite que a CPU acesse áreas específicas da memória para leitura ou escrita.
+    1. Barramento de controle (control bus): Carrega sinais de controle que controlam as operações e a sincronização dos componentes do sistema. Ele inclui sinais como leitura/escrita, interrupção, sinal de relógio, sinais de controle de barramento, entre outros.
+- Além desses barramentos principais, existem barramentos especializados que são projetados para conectar dispositivos específicos, como barramentos PCI (Peripheral Component Interconnect) para dispositivos de expansão, barramentos USB (Universal Serial Bus) para conexão de periféricos, barramentos Ethernet para redes de computadores, entre outros.
+- Os sistemas operacionais lidam com os barramentos ao controlar a alocação e o gerenciamento de recursos do sistema, permitindo que os componentes de hardware se comuniquem de maneira eficiente e coordenada. Os drivers de dispositivo são responsáveis por fornecer suporte para o acesso aos barramentos específicos e garantir a interoperabilidade entre o sistema operacional e os dispositivos conectados.
+
+<br>
+
+# 1.4 - **O zoológico dos sistemas operacionais**
+- Por hora será pulado, pois não é tão urgente assim.
+
+<br>
+
+# 1.5 - **Conceitos de Sistemas Operacionais**
+
+## 1.5.1 - Processos
 
 
