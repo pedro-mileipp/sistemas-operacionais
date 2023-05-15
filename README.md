@@ -82,5 +82,20 @@ entrada e saída).
 # 1.5 - **Conceitos de Sistemas Operacionais**
 
 ## 1.5.1 - Processos
+- Um conceito fundamental em todos os sistemas operacionais é o processo. Um processo é basicamente um programa em execução. Associado a cada processo está o espaço de endereçamento, uma lista de posições de memória que vai de 0 a algum máximo, onde o pro-cesso pode ler e escrever. Um processo é na essência um contêiner que armaze-na todas as informações necessárias para executar um programa.
 
 
+## 1.5.2 - Espaços de Endereçamento
+- Todo  computador  tem  alguma  memória  principal que  ele  usa  para  armazenar  programas  em  execução. Em um sistema operacional muito simples, apenas um programa de cada vez está na memória. Para executar um segundo programa, o primeiro tem de ser removido e o segundo colocado na memória. Sistemas  operacionais  mais  sofisticados  permitem que múltiplos programas estejam na memória ao mes-mo tempo. Para evitar que interfiram entre si (e com o sistema operacional), algum tipo de mecanismo de pro-teção é necessário. Embora esse mecanismo deva estar no hardware, ele é controlado pelo sistema operacional.
+
+
+## 1.5.3 - Arquivos
+- Outro  conceito  fundamental  que  conta  com  o  su-porte  de  virtualmente  todos  os  sistemas  operacionais é o sistema de arquivos. Como já foi observado, uma função importante do sistema operacional é esconder as peculiaridades dos discos e outros dispositivos de E/S e  apresentar  ao  programador  um  modelo  agradável  e claro de arquivos que sejam independentes dos disposi-tivos. Chamadas de sistema são obviamente necessárias para criar, remover, ler e escrever arquivos. Antes que um arquivo possa ser lido, ele deve ser localizado no disco e aberto, e após ter sido lido, deve ser fechado, assim as chamadas de sistema são fornecidas para fazer essas coisas. Para fornecer um lugar para manter os arquivos, a maioria dos sistemas operacionais de PCs tem o conceito de um diretório como uma maneira de agrupar os arquivos. Um estudante, por exemplo, pode ter um diretório para cada curso que ele estiver seguindo (para os programas necessários para aquele curso), outro para o correio eletrônico e ainda um para sua página na web. Chamadas de sistema são então necessárias para criar e remover diretórios. Chamadas também são fornecidas para  colocar  um  arquivo  existente  em  um  diretório  e para remover um arquivo de um diretório. Entradas de diretório podem ser de arquivos ou de outros diretórios. 
+
+## 1.5.4 - Entrada/Saída
+- Todos os computadores têm dispositivos físicos para obter entradas e produzir saídas. Afinal, para que servi-ria um computador se os usuários não pudessem dizer a ele o que fazer e não pudessem receber os resultados após ele ter feito o trabalho pedido? Existem muitos ti-pos de dispositivos de entrada e de saída, incluindo te-clados, monitores, impressoras e assim por diante. Cabe ao sistema operacional gerenciá-los. Em consequência, todo sistema operacional tem um subsistema de E/S para gerenciar os dispositivos de E/S. Alguns softwares de E/S são independentes do dispo-sitivo, isto é, aplicam-se igualmente bem a muitos ou a todos dispositivos de E/S. Outras partes dele, como drivers de dispositivo, são específicos a dispositivos de E/S particulares.
+
+## 1.5.5 - Proteção
+- Todos os computadores têm dispositivos físicos para obter entradas e produzir saídas. Afinal, para que servi-ria um computador se os usuários não pudessem dizer a ele o que fazer e não pudessem receber os resultados após ele ter feito o trabalho pedido? Existem muitos ti-pos de dispositivos de entrada e de saída, incluindo te-clados, monitores, impressoras e assim por diante. Cabe ao sistema operacional gerenciá-los. Em consequência, todo sistema operacional tem um subsistema de E/S para gerenciar os dispositivos de E/S. Alguns softwares de E/S são independentes do dispo-sitivo, isto é, aplicam-se igualmente bem a muitos ou a todos dispositivos de E/S. Outras partes dele, como drivers de dispositivo, são específicos a dispositivos de E/S particulares.
+
+## 1.5.6 - O interpretador de comandos (shell)
