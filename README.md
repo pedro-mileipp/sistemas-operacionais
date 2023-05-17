@@ -106,7 +106,7 @@ entrada e saída).
 # 1.6 - **Chamadas ao sistema**
 
 ## Conceito inicial
-- Em sistemas operacionais, as chamadas de sistema (também conhecidas como system calls) são interfaces fornecidas pelo sistema operacional que permitem que os programas de aplicação solicitem serviços e recursos do sistema operacional. Elas são a maneira pela qual os programas de usuário interagem com o kernel do sistema operacional.
+- Em sistemas operacionais, <mark style="background: purple; color: white; font-weight: 500">as chamadas de sistema (também conhecidas como system calls) são interfaces fornecidas pelo sistema operacional que permitem que os programas de aplicação solicitem serviços e recursos do sistema operacional. Elas são a maneira pela qual os programas de usuário interagem com o kernel do sistema operacional.</mark>
 - Quando um programa de aplicação precisa executar uma operação que requer acesso privilegiado ou serviços oferecidos pelo sistema operacional, ele faz uma chamada de sistema específica para solicitar essas ações. Essas chamadas podem incluir operações como leitura ou escrita em arquivos, criação de processos, alocação de memória, acesso a dispositivos de entrada e saída, entre outras.
 - As chamadas de sistema fornecem uma abstração para os programas de aplicação, permitindo que eles utilizem as funcionalidades do sistema operacional de maneira segura e controlada. Quando uma chamada de sistema é feita, o programa de usuário transfere o controle para o kernel do sistema operacional, que executa a operação solicitada em nome do programa e retorna os resultados apropriados.
 - As chamadas de sistema são uma parte fundamental dos sistemas operacionais e desempenham um papel importante na execução de tarefas do sistema, garantindo a segurança e a proteção dos recursos do sistema, bem como a interação entre os programas de usuário e o sistema operacional.
@@ -154,3 +154,48 @@ entrada e saída).
 1. **Rename Directory:** A chamada de sistema rename também pode ser usada para renomear diretórios existentes, alterando o nome pelo qual eles são conhecidos no sistema de arquivos.
 1. **Delete Directory:** A chamada de sistema rmdir é usada para excluir um diretório existente, desde que esteja vazio, ou seja, não contenha nenhum arquivo ou subdiretório.
 - Essas são algumas das chamadas de sistema comumente usadas para o gerenciamento de diretórios. Elas permitem que os programas de aplicação criem, naveguem e manipulem diretórios dentro do sistema de arquivos controlado pelo sistema operacional. É importante observar que as chamadas de sistema podem variar dependendo do sistema operacional específico, mas os conceitos básicos de manipulação de diretórios são amplamente utilizados em diferentes sistemas operacionais.
+
+<br>
+
+# **Estrutura dos Sistemas Operacionais**
+
+## 1.7.1 - Sistemas Monolíticos
+- A mais comum, nessa abordagem <mark style="background-color: seagreen; color: white; font-weight: 500"> todo o sistema operacional é executado como um único programa em modo núcleo.</mark>. O sistema operacional é escrito como uma coleção de rotinas , ligadas a um único grande programa binário executável. Nessa técnica, cada procedimento é livre para chamar qualquer outro, se este oferecer alguma computação útil de que o primeiro precisa. Ser capaz de chamar qualquer procedimento que você quer é muito eficiente, mas ter milhares de procedimentos que  podem  chamar  um  ao  outro  sem  restrições  pode também levar a um sistema difícil de lidar e compre-ender. Também, uma quebra em qualquer uma dessas rotinas derrubará todo o sistema operacional.
+
+## 1.7.2 - Sistemas de Camadas
+
+
+
+| Camada   |  Função                                     |
+| :------: | :------                                     |
+| 5        | Operador                                    |    
+| 4        | Programas de usuário                        |    
+| 3        | Controle de Entrada e Saída                 |    
+| 2        | Comunicação operador-processo               |    
+| 1        | Gerenciamento de memória                    |    
+| 0        | Alocação do processador e multiprogramação  |     
+
+- **Camada 0:** Fornecia os serviços para a multiprogramação básica da CPU. Realizava chaveamento de processos quando temporizadores expiravam ou quando ocorriam interrupções.
+- **Camada 1:** Reserva espaço para os processos na memória principal. As camadas acima não precisavam se preocupar com tal tarefa. A camada 1 assegurava que as páginas eram trazidas para MP quando necessário.
+- **Camada 2:** Encarregava-se de comunicação entre cada processo e o console de operação.
+- **Camada 3:** Encarregava-se do gerenciamento dos dispositivos de E/S, armazenando temporariamente os fluxos de instrução que vinham ou iam para estes dispositivos.
+- **Camada 4:** Ficavam os programas do usuário.
+- **Camada 5:** Ficava o processo operador do sistema.
+- **Vantagens:**
+    - A primeira camada pode ser depurada sem qualquer preocupação com o restante do sistema (utiliza apenas o HW básico)
+    - Quando a primeira camada é depurada, sua funcionalidade correta pode ser assumida, e assim por diante.
+- A principal dificuldade é decidir em qual camada uma determinada funcionalidade estará presente.
+- Cada camada acrescenta um custo adicional à chamada de sistema.
+
+# 1.7.3 - Micronúcleo (MicroKernel)
+- Sua abordagem é toner o núcleo do SO o mais simples possível
+    - No sistema em camadas, muitas camadas entramm no núclo do SO.
+- Estrutura o sistema operacional removendo todos os componentes não essenciais ao kernel, implementando-os como programas no nível de sistema e do usuário.
+- Existe pouco consenso sobre quais serviços devem permanecer kernel.
+    - Fornece uam gerência mínima de processo e memória, além de facilidade de comunicação.
+- O objetivo é alcançar alta confiabilidade por meio da divisão do SO em módulos pequenos.
+- Somente o micronúcleo é executado em modo kernel.
+- Os demais processos são executados em modo usuário, onde um erro pode derrubar somente o processo e não todo o sistema.
+- Usado em aplicações de tempo real, aviônica e industrias por exemplo.
+
+## 1.7.4 - Modelo Cliente-Servidor
