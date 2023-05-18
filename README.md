@@ -199,3 +199,12 @@ entrada e saída).
 - Usado em aplicações de tempo real, aviônica e industrias por exemplo.
 
 ## 1.7.4 - Modelo Cliente-Servidor
+- O serviço é solicitado pelo cliente envia uma mensagem ao processo servidor.
+- O servidor realiza o trabalho e envia a resposta através de outra mensagem.
+- O núcleo do SO trata a comunicação entre clientes e servidores.
+- A vantagem é a fácil adaptação para sistemas distribuídos.
+- Normalmente o que se implementa é uma combinação do sistema de camadas com o modelo cliente-servidor.
+- Nestes casos, o núcleo do sistema além de ser responsável pela comunicação entre processos clientes e servidores, passa a incorporar outras funções críticas:
+    - Gerência de E/S;
+    - Gerência de memória;
+    - Escalonamento de processos.
