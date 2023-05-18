@@ -208,3 +208,76 @@ entrada e saída).
     - Gerência de E/S;
     - Gerência de memória;
     - Escalonamento de processos.
+
+<br>
+<br>
+
+# 2 - **Processos e Threads**
+
+## 2.1 - Processos
+- Em sistemas operacionais, um processo é uma instância em execução de um programa de computador. Ele representa uma unidade de trabalho independente, com seu próprio espaço de endereçamento, conjunto de registradores e pilha de execução. Um processo é uma entidade dinâmica que pode ser programada e gerenciada pelo sistema operacional.
+- Os processos mantém a capacidade de operações concorrentes mesmo quando há apenas uma CPU disponível.
+- <mark style="background: darkcyan; color: white; font-weight: 500">Um processo é um programa em execução.</mark>
+- *Exemplo:*
+    - Fazer um bolo:
+        - Receita → Programa
+        - Ingredientes → Dados de entrada
+        - O cozinheiro → CPU
+- Possui 3 elementos básicos: contexto de software, contexto de hardware e espaço de endereçamento.
+    - Contexto de SW: Características do processo como: identificação, número máximo de arquivos abertos, privilégios, etc
+    - Contexto de HW: Constitui basicamente o conteúdo dos registradores
+    - Espaço de endereçamento: É a área de memória pertencente ao processo, onde estarão armazenados as instruções e os dados para a execução.
+- O que esperar do SO:
+    - Alternar a execução de processos de forma a maximizar a utilização da CPU e fornecer tempo de resposta razoável
+    - Alocar recursos a processos
+    - Suportar criação de processos pelo usuário
+    - Suportar comunicação entre processos
+- Para gerenciar processos o SO precisa conhecer onde o processo está localizado e os atributos do processo
+ -O SO materializa o processo através do bloco de controle de processo – PCB
+ - O PCB de todos os processos ativos residem na memória principal em uma área exclusiva do SO
+ - Usado para armazenar informações do processo
+- Bloco de Controle do Processo (Process Control Block)
+    - Estado do Processo
+    - Número do Processo (PID)
+    - Contador de Programa (PC)
+    - Registradores da CPU
+    - Informações de gerenciamento da memória (registradores base e limite, tabelas de páginas ou de segmentos, etc)
+    - Informações de status de I/O (lista de arquivos abertos, lista de dispositivos alocados a um processo, etc)
+    - Informações de Contabilização (tempo de execução real e de CPU, etc)
+    - Informações de escalonamento (prioridade, ponteiros para filas de escalonamento, parâmetros)
+- A gerência de processos é realizada por intermédio de chamadas às rotinas do SO, que realizam funções como criação, eliminação, sincronização, etc.
+- O SO toma grande cuidado para que processos independentes não afetem, de modo intencional ou por acidente, a correção de comportamento um do outro
+    - Vários processos compartilham concorrentemente a CPU e outros recursos de HW de forma transparente
+- A troca de um processo por outra é comandada pelo SO → Troca de Contexto
+- Sobrecarga associada troca de contexto:
+    - Salva contexto do processo
+    - Atualiza bloco de controle do processo (PCB)
+        - Gravação do novo estado (pronto/bloqueado...)
+    - Move o processo (PCB) para a fila apropriada
+    - Escolhe novo processo para execução
+    - Atualiza PCB do novo processo e dados relativos a MP
+    - Restaura contexto do novo processo
+- O que faz o SO para criar processos?
+    - Constrói estruturas de dados
+    - Aloca espaço de endereçamento
+- Quando o processo é criado?
+    - Início do sistema
+    - Requisição do usuário 
+    - Submissão de um job (batch)
+    - Processo cria outros processos
+- Um processo termina devido alguma das seguintes situações:
+    - Saída normal (voluntária)
+    - Saída por erro (voluntária)
+        - Ex. Um compilador termina a execução quando vai compilar um arquivo que não existe
+    - Erro fatal (involuntário)
+        - Ex. Execução de instrução ilegal, divisão por zero...
+    - Cancelamento por outro processo (involuntário)
+        - Ex. Comando kill no Linux
+
+## 2.1.2 - Estados dos Processos
+
+- **Novo:** O processo está sendo criado
+- **Em execução:** Instruções estão sendo executadas
+- **Em espera (ou bloqueado):** aguardando por algum evento (conclusão de I/O ou recebimento de um sinal)
+- **Pronto:** esperando para ser atribuído a um processador
+- **Terminado:** O processo terminou a sua execução
