@@ -40,9 +40,11 @@
    1. Um processo não pode esperar eternamente par entrar em sua região crítica;
 - _Progresso:_ Nenhum processo fora de sua região crítica pode bloquear outro processo
 - _Espera Limitada:_ Um processo não pode esperar indefinidamente para entrar em sua região crítica
-
-
-
+- Produtor X Consumidor:
+  - O Produtor é um processo que grava as informações em um buffer compartilhadpo, cada item gerado preenche uma posição no buffer. 
+  - O Consumidor é um processo que usa as informações gravadas no buffer. Cada item consumido libera uma posição no buffer.
+  - O Produtor pode produzir um item enquanto o consumidor está consumindo outro.
+  - Os processos produtores e consumidores precisam estar sincronizados de forma que um produtor não consuma um item ainda não produzido.
 
 
 
