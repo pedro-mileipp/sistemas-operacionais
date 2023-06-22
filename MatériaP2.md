@@ -65,8 +65,11 @@
   - Desta forma, o processo garante acesso exclusivo ao recurso compartilhado
   - _Desvantagens_:
     - Não se deve dar ao processo do usuário o poder de desabilitar interrupções, se o processo não as reabilita o funcionamento do sistema está comprometido
-  - As interrupções são desabilitadas em apenas uma CPU, outros processos podem continuar executando em outras CPUs e acessar os recursos compartilhados.
-  - Exclui não somente processos conflitantes mas também todos os outros processos.
+    - As interrupções são desabilitadas em apenas uma CPU, outros processos podem continuar executando em outras CPUs e acessar os recursos compartilhados.
+    - Exclui não somente processos conflitantes mas também todos os outros processos.
+
+- Variável de Bloqueio - _mutex_:
+  -
 
 
 
