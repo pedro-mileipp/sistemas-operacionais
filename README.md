@@ -24,8 +24,8 @@ entrada e saída).
 ## 1.1.2 - O Sistema Operacional como Gerenciador de Recursos
 - O conceito de um sistema operacional como fundamentalmente fornecendo abstrações para programas aplicativos é uma visão top-down (abstração de cima para baixo). Uma visão alternativa, bottom-up (abstração de baixo para cima), sustenta que o sistema operacional está ali para gerenciar todas as partes de um sistema complexo. Computadores modernos consistem de processadores, memórias, temporizadores, discos, dispositivos apontadores do tipo mouse, interfaces de rede, impressoras e uma ampla gama de outros dispositivos. Na visão bottom-up, a função do sistema operacional é fornecer uma alocação ordenada e controlada dos processadores, memórias e dispositivos de E/S entre os vários programas competindo por eles. 
 - O gerenciamento de recursos inclui a **multiplexação (compartilhamento)** de recursos de duas maneiras diferentes: no **tempo e no espaço.**
-- **Tempo:** Quando um recurso é multiplexado no tempo, diferentes programas ou usuários se revezam usando-o. Primeiro, um deles usa orecurso, então outro e assim por diante. Por exemplo,com apenas uma CPU e múltiplos programas querendo ser executados nela, o sistema operacional primeiro aloca a CPU para um programa, então, após ele ter sido executado por tempo suficiente, outro programa passa a fazer uso da CPU, então outro, e finalmente o primeiro de novo. Determinar como o recurso é multiplexado no tempo — quem vai em seguida e por quanto tempo — é a tarefa do sistema operacional. Outro exemplo da multiplexação no tempo é o compartilhamento da impressora. Quando múltiplas saídas de impressão estão na fila para serem impressas em uma única impressora, uma decisão tem de ser tomada sobre qual deve ser impressa em seguida. 
-- **Espaço:**: O outro tipo é a multiplexação de espaço. Em vez de os clientes se revezarem, cada um tem direito a uma parte do recurso. Por exemplo, a memória principal é normalmente dividida entre vários programas sendo executados, de modo que cada um pode ser residente ao mesmo tempo (por exemplo, a fim de se revezar usando a CPU). Presumindo que há memória suficiente para manter múltiplos programas, é mais eficiente mantervários programas na memória ao mesmo tempo do que dar a um deles toda ela, especialmente se o programa precisa apenas de uma pequena fração do total. É claro, isso gera questões de justiça, proteção e assim por diante, e cabe ao sistema operacional solucioná-las. Outro recurso que é multiplexado no espaço é o disco. Em muitos sistemas um único disco pode conter arquivos de muitos usuários ao mesmo tempo. Alocar espaço de disco e controlar quem está usando quais blocos do disco é uma tarefa típica do sistema operacional. 
+- **Tempo:** Quando um recurso é multiplexado no tempo, diferentes programas ou usuários se revezam usando-o. Primeiro, um deles usa o recurso, então outro e assim por diante. Por exemplo, com apenas uma CPU e múltiplos programas querendo ser executados nela, o sistema operacional primeiro aloca a CPU para um programa, então, após ele ter sido executado por tempo suficiente, outro programa passa a fazer uso da CPU, então outro, e finalmente o primeiro de novo. Determinar como o recurso é multiplexado no tempo — quem vai em seguida e por quanto tempo — é a tarefa do sistema operacional. Outro exemplo da multiplexação no tempo é o compartilhamento da impressora. Quando múltiplas saídas de impressão estão na fila para serem impressas em uma única impressora, uma decisão tem de ser tomada sobre qual deve ser impressa em seguida. 
+- **Espaço:**: O outro tipo é a multiplexação de espaço. Em vez de os clientes se revezarem, cada um tem direito a uma parte do recurso. Por exemplo, a memória principal é normalmente dividida entre vários programas sendo executados, de modo que cada um pode ser residente ao mesmo tempo (por exemplo, a fim de se revezar usando a CPU). Presumindo que há memória suficiente para manter múltiplos programas, é mais eficiente manter vários programas na memória ao mesmo tempo do que dar a um deles toda ela, especialmente se o programa precisa apenas de uma pequena fração do total. É claro, isso gera questões de justiça, proteção e assim por diante, e cabe ao sistema operacional solucioná-las. Outro recurso que é multiplexado no espaço é o disco. Em muitos sistemas um único disco pode conter arquivos de muitos usuários ao mesmo tempo. Alocar espaço de disco e controlar quem está usando quais blocos do disco é uma tarefa típica do sistema operacional. 
 
 <br>
 
@@ -281,3 +281,36 @@ entrada e saída).
 - **Em espera (ou bloqueado):** aguardando por algum evento (conclusão de I/O ou recebimento de um sinal)
 - **Pronto:** esperando para ser atribuído a um processador
 - **Terminado:** O processo terminou a sua execução
+
+# 2.1.3 - Estado Suspenso
+
+- Vários processos em execução –necessidadede espaço em MP disponível
+-Importante para implementação de memóriavirtual
+- O processador é muitomais rápido que E/S: todos os processos podem estar bloqueados 
+- Necessidade de novo estado→Suspenso 
+    - Imagem do processo sai temporariamente da MP
+    - SO seleciona um dos bloqueados para sair de MP
+    - É um operaçãode E/S
+
+
+
+<br>
+
+# 2.2 - Threads
+
+## Conceito inicial
+- Uma thread, também conhecida como uma "thread de execução" ou "encadeamento", é uma sequência de instruções que pode ser executada em paralelo com outras threads dentro de um processo. Em outras palavras, uma thread é uma unidade de execução dentro de um processo que compartilha o mesmo espaço de endereçamento e recursos, mas tem seu próprio estado de execução.
+- Aqui estão algumas características importantes das threads:
+    
+    1.**Execução concorrente:** As threads permitem que várias sequências de instruções sejam executadas em paralelo dentro de um único processo. Cada thread pode executar um conjunto diferente de instruções, operar em dados diferentes e ter seu próprio estado de execução independente.
+
+    1. **Compartilhamento de recursos:** As threads em um processo compartilham o mesmo espaço de endereçamento e recursos do sistema, como memória, arquivos abertos, manipuladores de E/S e outros recursos. Isso permite que as threads acessem e compartilhem informações entre si mais facilmente, sem a necessidade de comunicação explícita.
+
+    1. **Criação e destruição dinâmica:** As threads podem ser criadas e destruídas dinamicamente durante a execução de um programa. Isso permite que o programa adapte a criação de threads de acordo com as necessidades, como a paralelização de tarefas intensivas em computação ou o gerenciamento de eventos assíncronos.
+
+    1. **Escalonamento:** As threads são escalonadas pelo sistema operacional, assim como os processos. O sistema operacional decide a ordem em que as threads recebem tempo de execução na CPU e pode usar algoritmos de escalonamento para equilibrar a carga do sistema e garantir a justiça na alocação de recursos.
+
+    1. **Benefícios de desempenho:** As threads podem melhorar o desempenho e a capacidade de resposta de um programa, permitindo a execução concorrente de tarefas que podem ser paralelizadas. Isso é especialmente útil em sistemas com múltiplos núcleos de CPU, onde várias threads podem ser executadas verdadeiramente em paralelo.
+
+- As threads são usadas para implementar a programação multithread, que é uma abordagem em que várias threads cooperam entre si para realizar tarefas simultâneas e melhorar o desempenho geral do programa. As threads podem ser usadas para dividir tarefas complexas em partes menores, lidar com operações de E/S assíncronas, responder a eventos em tempo real e realizar cálculos paralelos.
+- No entanto, é importante observar que as threads também podem introduzir desafios adicionais, como condições de corrida (quando várias threads acessam e modificam os mesmos recursos simultaneamente) e sincronização (garantir a ordem correta de execução e evitar resultados inconsistentes). O desenvolvimento de programas multithread requer considerações cuidadosas para garantir a corretude e a robustez do código.
