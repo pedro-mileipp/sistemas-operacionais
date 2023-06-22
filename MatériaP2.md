@@ -1,0 +1,55 @@
+# **_CRONOGRAMA DE ESTUDOS PARA S.O_**
+
+## Até dia 26 para terminar Sincronização de Processos:
+- Ver as vídeos aulas [], anotar todos os tópicos importantes, procurar exemplos de semáforos na internet [] e resolver questinário usando o ChatGPT para elaborar perguntas [].
+
+## Do dia 27/06 à 30/6  terminar Deadlock: 
+- Ver as vídeos aulas [], anotar sobre os tópicos [], procurar exemplos de deadlocks na internet [] e resolver questinário usando o ChatGPT para elaborar perguntas. []
+
+
+
+# *Anotações*
+
+## Comunicação entre processos
+
+- Processos precisam trabalhar colaborativamente e se comunicar para atingir um objetivo comum, processos não são independentes;
+- Podem haver conflitos, assim como um processo pode invadir o espaço do outro;
+- Se um processo não está pronto para comunicar, o outro processo precisa abortar até que o outro esteja pronto;
+- Condição de Corrida:
+  1. Situação onde dois ou mais processos acessam recursos compartilhados concorrentemente;
+  2. Há uma corrida pelo recurso;
+  3. Ex: lendo ou escrevendo algum dado compartilhado e o resultado depende de quem processa no momento propício
+  4. a = d + c;
+  5. x = a + y (a variável 'a' é compartilhado/race cond.);
+  6. Dois ou mais processos acessam recursos de forma competitiva.
+- Outro exemplo:
+  - Operador OP1 (no Brasil) lê Poltrona1 vaga;
+  - Operador OP2 (no Japão) lê Poltrona1 vaga;
+  - Operador OP1 compra a Poltrona1 -> X;
+  - *Operador OP2 compra a Poltrona1* -> problema de sincronização. 
+- Região Crítica, definição:
+  - <mark style="background: purple; color: white; font-weight: 500">N processos competindo para utilizar os mesmos dados compartilhados, a região crítica será o segmento de código de cada processo onde é feito o acesso a este dado compartilhado.</mark>
+  - O problema é garantir que quando um processo executa a sua região crítica, nenhum outro processo pode acessar a sua região crítica, ou seja, **evitar condições de corrida**.
+- Vários processos acessam dados compartilhados concorrentemente e o resultado da execução depende da ordem específica em que ocorre o acesso ao dado compartilhado
+- _Exclusão Mútua_:
+ - Se um processo P está executando sua região crítica nenhum outro poderá executar a sua região crítica, ou seja, impedir que mais de um processo leia e escreva em uma variável compartilhada ao mesmo tempo.
+ - Regras para saber se uma solução de exclusão mútua seja boa:
+   1. Dois processos nunca podem estar simultaneamente dentro de suas regiões críticas;
+   1. Não se pode fazer suposições em relação à velocidade e ao número de CPUs;
+   1. Um processo fora da região crítica não deve caussar bloqueio a outro processo;
+   1. Um processo não pode esperar eternamente par entrar em sua região crítica;
+- _Progresso:_ Nenhum processo fora de sua região crítica pode bloquear outro processo
+- _Espera Limitada:_ Um processo não pode esperar indefinidamente para entrar em sua região crítica
+
+
+
+
+
+
+
+
+
+
+
+
+
