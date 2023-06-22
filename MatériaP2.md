@@ -6,7 +6,7 @@
 ## Do dia 27/06 à 30/6  terminar Deadlock: 
 - Ver as vídeos aulas [], anotar sobre os tópicos [], procurar exemplos de deadlocks na internet [] e resolver questinário usando o ChatGPT para elaborar perguntas. []
 
-
+<br>
 
 # *Anotações*
 
@@ -46,9 +46,27 @@
   - O Produtor pode produzir um item enquanto o consumidor está consumindo outro.
   - Os processos produtores e consumidores precisam estar sincronizados de forma que um produtor não consuma um item ainda não produzido.
 
+<br>
 
+## Soluções para evitar condições de corrida
+- Desabilitar interrupções:
+  - É a solução mais simples para se implementar a exclusão mútua.
+  - Um processo antes de entrar na sua RC, desabilita todas as interrupcções.
+  - Após a execução da RC, todas as interrupções são habilitadas novamente.
+  ```python
+  '''
+  
+  Desabilita Interrupções
+  -> Região Crítica
+  Habilita interrupções
 
-
+  '''
+  ```
+  - Desta forma, o processo garante acesso exclusivo ao recurso compartilhado
+  - _Desvantagens_:
+    - Não se deve dar ao processo do usuário o poder de desabilitar interrupções, se o processo não as reabilita o funcionamento do sistema está comprometido
+  - As interrupções são desabilitadas em apenas uma CPU, outros processos podem continuar executando em outras CPUs e acessar os recursos compartilhados.
+  - Exclui não somente processos conflitantes mas também todos os outros processos.
 
 
 
