@@ -141,5 +141,86 @@
 
 <br>
 
-## Semáforos e Monitores
+## Semáforos
+- Todas as soluções apresentadas possuem o problema da espera ocupada, o processo "bloqueado" (ele está impedido de entrar em sua região crítica, mas não está em estado de espera) consome tempo de CPU desnecessariamente.
+- Exemplo:
+  Quando um processo A está em sua RC e outro processo B desejar sua RC,e ste fica em loop, testando uma dada condição até que lhe seja permitido o acesso a sua RC.
+  - Neste caso, o processo B consome tempo de CPU desnecessariamente.
 
+<br>
+
+- Um semáforo é uma variável inteira não negatica que pode ser manipulada por duas instruções P (Down) e V (Up)
+- No caso da exclusão mútua as instruções Down e Up funcionam como protocolos de entrada e saída das regiões críticas.
+- As modificações feitas no valor do semáforo usando Down e Up são atômicas, ou seja, quando um processo modificar o valor do semáforo, nenhum outro pode modificá-lo concorrentemente e são implementadas através de chamadas ao sistema. 
+- _Down_ e _Up_ como protocolos de entrada e saída das RCs.
+- _Down_ é executada quando o processo deseja entrar na RC. Decrementa o semáforo de 1.
+- _Up_ é executada quando o processo sai da sua RC. Incrementa o semáforo de 1.
+
+```c
+Down(S)
+  if(S == 0)
+    // bloqueia processo
+  else
+    S = S - 1;
+
+Up(S)
+  if(tem processo na fila)
+    // libera o processo da fila e ele entra na RC
+  else
+    S = S + 1;
+```
+- Um semáforo fica associado a um recurso compartilhado, indicando se ele está sendo usado
+- Se o valor do semáforo é maior do que zero:
+  - Existe recurso compartilhado disponível
+  - processo pode usar o recurso e decrementa o semáforo
+- Se o valor do semáforo é zero:
+  - Os recursos disponíveis estão sendo usados
+  - O processo deve entrar em estado de espera até que o recurso se torne disponível.
+- No exemplo a seguir para a exclusão mútua é usado um semáforo binário (MUTEX)
+
+|     P1            |    P2             | mutex |
+| ----------------- | ----------------- | ----- |
+|                   |                   |   1   |
+| Down(mutex) **X** |                   |   0   |
+|                   | Down(mutex) **X** | 0 -> Bloqueia P2 |
+| RC1 - Acessa RC1  |                   |   0   |
+| Up (mutex)        |                   | 0 -> Libera P2 |
+|                   | RC2 -> Acessa RC2 |   0   |
+|                   | Up(mutex)         |   1   |
+
+- Produtor X Consumidor
+  - O produtor é um processo que grava informações em um buffer compartilhado. Cada item gerado preenche uma posição do buffer.
+  - O Consumidor é um procesos que usa as informações gravadas no buffer. Cada item consumido libera uma posição do buffer.
+  - O produtor não pode escrever em um buffer cheio e o consumidor não pode ler um buffer vazio.
+- Solução com Semáforos:
+  - A solução proposta deve garantir a exclusão mútua e a sincronização condicional.
+  - São usados 3 semáforos:
+    - Full -> semáforo contador: indica a quantidade de posições cheias
+    - Empty -> semáforo contador: indica a quantidade de posições vazias
+    - Mutex -> semáforo binário: indica se o buffer está sendo usado
+  - Se _Full = 0_, o buffer está vazio -> Bloqueia o consumidor
+  - Se _Empty = 0_, o buffer está cheio -> Bloqueia o produtor
+
+  ```c
+  // Produtor
+  Down(empty) // qtd de posições vazias, se estiver 0, nenhuma posição vazia e é bloqueado
+  Down(mutex)
+  Buffer[IN] = item
+  IN = (IN+1) % BUFFER_SIZE
+  Up(mutex)
+  Up(full) // Coloca mais 1 no full pq tem mais um cheio
+  
+  // Consumidor
+  Down (full) // se full == 0, indica 0 posições cheias, ou seja, tem nada
+  Down (mutex)
+  item = Buffer[OUT]
+  OUT = (OUT+I) % BUFFER_SIZE
+  Up(mutex)
+  Up(empty) // Coloca uma variável vazia a mais, porque uma foi consumida
+  ```
+- Cuidado com os semáforos:
+  - O uso de semáforos exige muito cuidado do programador
+  - Os comandos down e up podem estar espalhados em um programa sendo difícil visualizar o efeito destas operações
+  - Pode gerar deadlock ou starvation
+  - Deadlock: dois ou mais processos estão bloqueados aguardando por um evento que só pode ser gerado por um dos processos bloqueados
+  - Starvation: pode ocorrer caso a fila associada ao semáforo não seja FCFS
