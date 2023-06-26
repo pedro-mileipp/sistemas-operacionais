@@ -126,9 +126,20 @@
   - Requisito de progresso é satisfeito
   - Requisito de espera limitada é satisfeito
   - Possui o problema da espera ocupada
-`
-  - Solução para espera ocupada:
-    - Introduzir comandos que permitam que um processo seja colocado em estado de espera quando ele não puder acessar a sua região crítica
-    - O processo fica em estado de espera até que outro processo o libere
-    - Semáforos
-    - Monitores
+
+- Problemas da espera ocupada:
+  - **Definição:** A espera ocupada (busy-waiting) é uma técnica de programação em que um processo ou thread fica em um loop contínuo (um loop de espera) verificando repetidamente uma condição até que ela seja satisfeita. Em outras palavras, o processo fica "ocupado" verificando repetidamente se uma determinada condição é verdadeira antes de prosseguir com a execução.
+  - O problema da espera ocupada é que ela resulta em um consumo excessivo de recursos do sistema, principalmente do processador. Quando um processo ou thread está em um loop de espera, ele usa ativamente o tempo do processador, mesmo que não esteja realizando qualquer tarefa útil. Isso desperdiça recursos valiosos, reduzindo a eficiência e o desempenho geral do sistema.
+  - Outro problema é que a espera ocupada não é escalonável. Quando vários processos ou threads estão esperando ocupadamente, todos eles competem pelo processador, o que pode resultar em um aumento significativo do consumo de recursos e em uma degradação do desempenho geral do sistema.
+  - A espera ocupada também pode causar bloqueios indesejados ou deadlocks. Se dois ou mais processos ou threads estão em espera ocupada e dependem uns dos outros para progredir, pode ocorrer uma situação em que todos eles ficam presos em loops de espera infinitos, resultando em um bloqueio completo do sistema.
+
+- Solução para espera ocupada:
+  - Introduzir comandos que permitam que um processo seja colocado em estado de espera quando ele não puder acessar a sua região crítica
+  - O processo fica em estado de espera até que outro processo o libere
+  - Semáforos
+  - Monitores
+
+<br>
+
+## Semáforos e Monitores
+
