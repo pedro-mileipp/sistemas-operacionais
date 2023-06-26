@@ -54,13 +54,9 @@
   - Um processo antes de entrar na sua RC, desabilita todas as interrupcções.
   - Após a execução da RC, todas as interrupções são habilitadas novamente.
   ```python
-  '''
-  
-  Desabilita Interrupções
-  -> Região Crítica
-  Habilita interrupções
-
-  '''
+  '''Desabilita Interrupções'''
+    # -> Região Crítica
+  '''Habilita interrupções'''
   ```
   - Desta forma, o processo garante acesso exclusivo ao recurso compartilhado
   - _Desvantagens_:
@@ -69,10 +65,70 @@
     - Exclui não somente processos conflitantes mas também todos os outros processos.
 
 - Variável de Bloqueio - _mutex_:
-  -
+  - Introduz uma variável lógica  que recebe TRUE quando o processo entra em sua região crítica.
+  - Ao sair da região crítica a variável lógica recebe FALSE.
+  ```c
+  while(mutex);
+  mutex = true;
+  // Região Crítica
+  mutex = false;
+  ```
+  - Logo, se a variável lógica estiver com TRUE, já existe um processo acessando a região crítica e outro processo não poderá accessá-la;
+  - Se o processo for interrompido após o teste de _mutex_ e antes que o seu valor seja atualizado, o mecanismo pode falhar.
+  - Assim, dois processos podem acessar suas regiões críticas concorrentemente.
+  - **Não garante a Exclusão Mútua**.
 
+- Variável de comutação - _Turn_
+  ```c
+  // ProcessoA
+  while (turn != A);
+  // Região Crítica A;
+  turn = B;
+  // Processamento longo
+  ```
+  ```c
+  // ProcessoB
+  while (turn != B);
+  // Região Crítica B;
+  turn = A;
+  // Processamento curto
+  ```
+  - Garante a exclusão mútua, porém, possui o problema da espera ocupada;
+  - Obriga alternar a execução entre as regiões críticas dos processos, se um processo executar sua RC com maior frequência, será prejuficado;
+  - Um processo fora da sua RC "bloqueia" a execução de outro;
+    - No exemplo anterior, o processo A realiza um processameto longo e não cede a vez para B;
+    - Não garante o requisito de PROGRESSO.
 
-
-
-
-
+- Comutação não alternada
+  - Assegura a exclusão mútua entre dois processos sme precisar alternar a execução entre as suas regiões críticas;
+  - Utiliza:
+    - A variável _turn_ que indica qual processo está na vez de executar;
+    - O vetor _Interested_ que indica para cada processo se ele está interessado e pronto para executar sua RC;
+    - Um processo entra na sua região crítica somente se o outro não estiver interessado;
+    - Caso os dois processos estejam interessados o valor de turn decide qual processo ganha a região crítica
+    ```c
+    // ProcessoA
+    interested[A] = true;
+    turn = B;
+    while (interested[B] && turn==B);
+    Região Crítica A;
+    interested[A] = false;
+    ```
+    ```c
+    // ProcessoB
+    interested[B] = true;
+    turn = A;
+    while (interested[A] && turn==A);
+    Região Crítica B;
+    interested[B] = false;
+    ```
+  - Garante a exclusão mútua
+  - Requisito de progresso é satisfeito
+  - Requisito de espera limitada é satisfeito
+  - Possui o problema da espera ocupada
+`
+  - Solução para espera ocupada:
+    - Introduzir comandos que permitam que um processo seja colocado em estado de espera quando ele não puder acessar a sua região crítica
+    - O processo fica em estado de espera até que outro processo o libere
+    - Semáforos
+    - Monitores
