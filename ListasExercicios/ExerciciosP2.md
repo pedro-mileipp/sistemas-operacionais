@@ -75,7 +75,7 @@
 - b) 
     | Espaço  | Programas |
     | ------------- |:-------------:|
-    | 5Kb     | Livr'e    |
+    | 5Kb     | Livre    |
     | 3Kb     | Programa B     |
     | 6Kb    | Programa D    |
     | 4Kb    | Livre   |
@@ -160,9 +160,17 @@
 <br>
 
 ### **7.O que é swapping e para que é utilizada esta técnica?  Qual a importância da realocação dinâmica nesta técnica?**
+- A técnica de swapping foi introduzida para contornar o problema da insuficiência de memória principal. Essa técnica é aplicada à gerência para programas que esperam por memória livre para serem executados. Nesta situação, o sistema escolhe um processo residente, que é transferido da memória principal para a memória secundária (swap out), geralmente disco. Posteriormente, o processo é carregado de volta da memória secundária para a memória principal (swap in) e pode continuar sua execução como se nada tivesse acontecido. A realocação dinâmica permite que os programas possa ser retirados da memória principal para a memória secundária e trazidos novamente para a memória principal em qualquer posição.
 
+<br>
 
+### **Fixação: Conceitue memória virtual.**
+- Memória virtual é um mecanismo utilizado pelos sistemas operacionais para permitir que os processos acessem uma quantidade maior de memória do que a memória física (RAM) disponível no ssitema. A ideia por trás da memória virtual é proporcionar uma ilusão aos processos de que eles têm acesso a uma grande quantidade de memória, mesmo que o espaço real de memória seja limitado.
+- A memória virtual funciona combinando a memória RAM do computador com uma área de armazenamento em disco chamada de "espaço de troca" (swap space). Quando um procesos é executado e precisa de mais memória do que a disponível na RAM, partes menos utilizadas da memória são movidas para o espaço de troca, liberando espaço na RAM para o nov conteúdo necessário.
 
+<br>
+
+### **8.Quais  os  benefícios  oferecidos  pela  técnica  de  memória  virtual?  Como  este  conceito  permite  que  um programa e seus dados ultrapassem os limites da memória principal?**
 
 
 
