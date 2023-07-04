@@ -173,3 +173,19 @@
 ### **8.Quais  os  benefícios  oferecidos  pela  técnica  de  memória  virtual?  Como  este  conceito  permite  que  um programa e seus dados ultrapassem os limites da memória principal?**
 - Os principais benefícios da técnica de memória virtual são possibilitar que programas e dados sejam armazenados independente do tamanho da memória principal. Esta técnica sofisticada de gerência de memória combina as memórias principal e secundária, dando ao usuário a impressão de existir uma memória muito maior do que a MP. 
 
+<br>
+
+### **9. Qual a principal diferença entre os sistemas que implementam paginação e segmentação?**
+- A principal dferença entre os dois sistemas está relacionada na forma como o espaço de endereçamento virtual está dividido logicamente. Na paginação, o espaço de endereçamento está divido em blocos com o mesmo número de endereços virtuais (páginas), enquanto que na segmentação o tamanho dos blocos pode variar (segmentos).
+
+<br>
+
+### **10. O  que  são  tabelas  de  páginas  e  tabelas  de  segmentos?  Explique  para  que  servem  os  bits  de  validade, referencia e modificação encontrados nestas tabelas.**
+
+- São tabelas de mapeamento, utilizadas no mecanismo de memória virtual, que possibilitam que endereços virtuais sejam traduzidos em endereços reais. O bit de validade é usado para indicar se a página ou o segmento em questão encontra-se na memória principal. O bit de modificação, indica 1 quando a página foi escrita na memória principal e 0, caso contrário. O bit de referência indica se a página foi referenciada na memória principal.
+
+<br>
+
+### **11.O  que  é  um  page  fault,  quando  ocorre  e  quem  controla  a  sua  ocorrência?  Como  uma  elevada  taxa  de page fault pode comprometer o sistema operacional?** 
+
+- O page fault ocorre todas as vezes que um processo faz referência a um endereço virtual pertencente a uma página virtual que não se encontra mapeada em uma página real, ou seja, não está, no momento, na memória principal. A ocorrência do page fault é verificada através do bit de validade presente na entrada da tabela de páginas referente à página virtual. Uma elevada taxa de page fault pode comprometer o desempenho do sistema devido ao excessivo overhead de operações E/S gerados pela paginação.
