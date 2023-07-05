@@ -189,3 +189,9 @@
 ### **11.O  que  é  um  page  fault,  quando  ocorre  e  quem  controla  a  sua  ocorrência?  Como  uma  elevada  taxa  de page fault pode comprometer o sistema operacional?** 
 
 - O page fault ocorre todas as vezes que um processo faz referência a um endereço virtual pertencente a uma página virtual que não se encontra mapeada em uma página real, ou seja, não está, no momento, na memória principal. A ocorrência do page fault é verificada através do bit de validade presente na entrada da tabela de páginas referente à página virtual. Uma elevada taxa de page fault pode comprometer o desempenho do sistema devido ao excessivo overhead de operações E/S gerados pela paginação.
+
+<br>
+
+### **12.Compare as políticas de busca de páginas apresentadas.**
+- Na paginação por demanda, as páginas dos processos são transferidas da memória secundária para a principal apenas quando são referenciadas. este mecanismo é conveniente, na medida em que leva para a memória principal apenas as páginas realmente necessárias à execução do programa. Desse modo, é possível que partes não executadas do programa, como rotinas de tratamento de erros, nunca sejam carregadas para a memória.
+- Na página antecipada, o sistema carrega para a memória principal, além das páginas referenciadas, outras páginas que podem ou não ser necessárias ao processo ao longo do seu processamento. Se imaginarmos que o programa está armazenado sequencialmente no disco, existe grande economia de tempo em levar um conjunto de páginas da memória secndária, ao contrário de carregar umad e cada vez. Por outro lado, caso o processo não precise das páginas carregadas antecipadamente, o sistema terá perdido tempo e ocupado memória principal desnecessariamente.
