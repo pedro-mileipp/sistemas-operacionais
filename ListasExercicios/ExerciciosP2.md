@@ -263,3 +263,143 @@
   - Página virtual 1; Deslocamento 195
 
 <br>
+
+### **16. Descreva   os   algoritmos   de   substituição   de   páginas   OPT,   FIFO,   LRU,   NRU   e   segunda   chance, apresentando vantagens e desvantagens**
+
+- OPT: Possui a melhor taxa de falha de página dentro todos os algoritmos, Substitui a página que ficará mais tempo sem ser referenciada no futuro. Difícil saber de antemão a ordem em que as páginas serão referenciadas durante a execução. Como produz um resultado ótimo, é usado para estudos comparativos para se testar a eficiência de outros programas.
+- FIFO: Quando uma página precisar ser substituída, a página mais antiga será escolhida para sair da memória. Fácil de entender e programar. É razoável pensar que uma página que já foi carregada para a MP há mais tempo, já tenha sido referenciada o suficiente, isto nem sempre é verdade e seu desempenho pode não ser bom. Pode ser que a primeira página carregada seja a mais utilizada no sistema.
+- LRU: Substitui a página menos recentemente usada, ou seja, aquela cuja última referência foi feita há mais tempo. Se for considerado o princípio da localidade, é provável que uma página que não tenha sido referenciada recentemente não seja usada novamente em um futuro próximo. É uma boa estratégia, porém possui maior sobrecarga pois deve manter atualizado o momento do último acesso a cada página.
+- NRU: Usa um bit de referência para indicar se a página foi usada recentemente ou não. Inicialmente, quando uma página é trazida para a memória, o seu bit de referência é zero. Quando uma página que já está na memória e é referenciada o seu bit muda para 1. O algoritmo substitui a página que não foi usada recentemente. Pode ser mais eficiente ao se usar bits de referência adicionais.
+- Segunda  Chance:  Cria  uma  modificação  no  algoritmo  FIFO,  com  o  objetivo  de  não  substituir  uma  página intensamente  usada.  O  bit  de  referência  da  página  mais  antiga  é  inspecionado:  Se  o  bit  =  0,  então  a substituição prossegue, se o bit = 1, então a página recebe uma segunda chance, seu bit de referência é zerado e sua hora de chegada é reiniciada (vai pro fim da fila). Se uma página é usada com frequência, e seu bit está sempre 1, então ela não será substituída
+
+<br>
+
+### **17. Considere  umsistema  de  memória  virtual  que  implemente  paginação,  onde  o  limite  de  frames  por  processo  é  igual  a  três.  Descreva  para  os  itens  abaixo,  onde  é  apresentada  uma  sequência  de referências à páginas pelo processo, o número total de page faults para as estratégias de realocação de páginas FIFO, OPT, LRU, NRU e Segunda chance. Indique qual a mais eficaz para cada item.**
+
+<br>
+
+```markdown
+# **Primeira string de referência**
+String de referência: 1 2 3 1 4 2 5 3 4 3
+
+FIFO:
+
+1 2 3 1 4 2 5 3 4 3
+
+1 1 1 | 4 | 4 | | |    
+  2 2 | 2 | 5 | | | 
+    3 | 3 | 3 | | |
+
+Houve 5 page faults
+
+--------------------------------------------------
+
+OPT
+
+1  2  3  1  4  2  5  3  4  3
+
+1  1  1  |  4  |  4  |  |  |
+   2  2  |  2  |  5  |  |  |
+      3  |  3  |  3  |  |  |
+
+Houve 5 page faults
+
+--------------------------------------------------
+
+LRU 
+
+1  2  3  1  4  2  5  3  4  3
+
+1  1  1  |  1  1  5  5  5  | 
+   2  2  |  4  4  4  3  3  |
+      3  |  3  2  2  2  4  |
+
+Houve 8 page faults    
+
+--------------------------------------------------
+
+NRU
+
+N¹ -> Página com bit 1
+N -> Página com bit 0
+
+1  2  3  1  4  2  5  3  4  3
+
+1  1  1¹ |  1¹ 1¹ 1¹ 1¹ 1¹ |
+   2  2  |  4  4  5  5  4  |
+      3  |  3  2  2  3  3  |
+
+Houve 8 page faults
+
+--------------------------------------------------
+
+Segunda chance
+
+1  2  3  1  4  2  5  3  4  3
+1  1  1  |  1  1  5  5  5  |
+   2  2  |  4  4  4  3  3  |
+      3  |  3  2  2  2  4  |
+
+FILA: *1¹, *2, *3, *1, *4, *2, 5, 3, 4
+
+# **Segunda string de referência**
+
+String de referência: 1  2  3  1  4  1  3  2  3  3
+
+FIFO:
+
+1  2  3  1  4  1  3  2  3  3
+
+1  1  1  |  4  4  |  4  3  |
+   2  2  |  2  1  |  1  1  |
+      3  |  3  3  |  2  2  |
+
+FILA: *1, *2, *3, *4, 1, 2, 3
+Houve 7 page faults 
+
+--------------------------------------------------
+
+LRU:
+
+1  2  3  1  4  1  3  2  3  3
+
+1  1  1  |  1  |  |  1  |  |
+   2  2  |  4  |  |  2  |  |
+      3  |  3  |  |  3  |  |
+
+Houve 5 page faults
+
+--------------------------------------------------
+
+OPT:
+
+1  2  3  1  4  1  3  2  3  3
+
+1  1  1  |  1  |  |  2  |  |
+   2  2  |  4  |  |  4  |  |
+      3  |  3  |  |  3  |  |
+
+Houve 5 page faults  
+
+--------------------------------------------------
+
+NRU:
+
+1  2  3  1  4  1  3  2  3  3
+
+1  1  1¹ |  1¹ |  |  1¹ |  |  
+   2  2  |  4  |  |  2  |  | 
+      3  |  3¹ |  |  3¹ |  |
+
+Houve 5 page faults
+
+--------------------------------------------------
+
+1  2  3  1  4  1  3  2  3  3
+1  1  1  |  1  |  |  1  |  |
+   2  2  |  4  |  |  2  |  |
+      3  |  3  |  |  3  |  |
+ 
+FILA: *1¹, *2, *3¹, *1¹, *4, 3¹, 1, 2
+
+```
