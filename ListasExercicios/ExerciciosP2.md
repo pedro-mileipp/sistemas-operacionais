@@ -202,3 +202,64 @@
 - A política de alocação de páginas determina quantos quadros (frames) um processo pode manter na memória principal. 
 - Na alocação fixa cada processo tem um número máximo de frames, que pode ser usado durante a execução. É uma política simples de ser implementada, mas não é sempre uma boa opção, pois os processos possuem necessidades diferentes na alocação de memória. Se o número de frames alocado para um processo for pouco, uma página do próprio processo deve ser descartada para que outra seja carregada. O limite de frames deve ser definido no momento da criação do processo com base no tipo de aplicação que será executada. Se o limite for pequeno, o processo terá alto índice de page faults; se o limite for alto, poucos processos compartilharão a memória, podendo aumentar o swapping de processos. 
 - Na alocação variável o número máximo de frames alocado para um processo durante a sua execução pode variar. Um processo com alta taxa de paginação pode ter o limite máximo de frames aumentado para diminuir o alto índice de page faults. Já um processo com baixa taxa de paginação pode ter seus frames alocados para outros processos. A alocação variável é mais flexível, mas exige que o sistema operacional monitore constantemente o comportamento do s processos, gerando maior overhead.
+
+<br>
+
+
+### 14.Um  sistema  com  gerência  de  memória  virtual  por  paginação  possui  tamanho  de  página  com  512 posições, espaço de endereçamento virtual com 512 páginas e memória real com 10 frames. Diga como é o formato do endereço virtual e o formato do endereço real.
+
+- Tamanho da página: 512 posições
+- Espaço de endereçamento virtual: 512 páginas
+- Memória real: 10 frames
+
+<br>
+
+- **Formato de endereço virtual**
+  - Como temos 512 páginas no espaço de enderaçamento virtual, são necessários 9 bits para representar o número da página virtual (2^9=512). Os primeiros 9 bits do formato indicam a página virtual.
+  - O tamanho da página é de 512 posições, então serão necessários mais 9 bits para representar o deslocamento dentro da página (2^9=512). Portanto os próximos 9 bits do endereço virtual indicam o deslocamento.
+  ```
+    |-------------|----------------|
+    | Número da   |   Deslocamento |
+    | página      |   dentro da    |
+    | virtual     |    página      |
+    |-------------|----------------|
+    |    9 bits   |     9 bits     |
+  ```
+- **Formato de endereço real**
+  - Temos 10 frames, portanto são necessários  4 bits para representar o número de frames (2^4=16).
+  - O tamanho da página e o tamanho do frame são iguais, portanto 9 bits para o deslocamento no frame
+  ```
+  |-----------|----------------|
+  | Número do |   Deslocamento |
+  | frame     |   dentro do    |
+  |           |    frame       |
+  |-----------|----------------|
+  |   4 bits  |     9 bits     |
+  ```
+
+### **15. Um    sistema operacional    implementa    gerência    de    memória    virtual    por    paginação.    Considere  endereços  virtuais  com  16  bits,  referenciados  por  um  mesmo  processo  durante  sua  execução  e  sua tabela de páginas abaixo  com  no  máximo  256  entradas,  sendo  que  estão  representadas  apenas  as  páginas  presentes  na memória  real.  Indique  para  cada  endereço  virtual  a  seguir  a  página  virtual  em  que  o  endereço  se encontra e o respectivo deslocamento. Os endereços virtuais são 2047, 1098, 451.**
+
+- 256 entradas na tabela de páginas significa que há 256 páginas, portanto serão necessários 8 bits para o número de páginas (2^8=256). Como o endereço é formado por 16 bits, sobra 8 bits para o deslocamento.
+
+- a) 2047
+  ```
+  | Página virtual | Deslocamento |
+  |   00000111     |  11111111    |
+  ```    
+  - Página virtual 7; Deslocamento 255
+
+- b) 1098
+  ```
+  | Página virtual | Deslocamento |
+  |   00000100     |  01001010    |
+  ```    
+  - Página virtual 4; Deslocamento 74
+
+- c) 451
+  ```
+  | Página virtual | Deslocamento |
+  |   00000001     |  11000011    |
+  ```    
+  - Página virtual 1; Deslocamento 195
+
+<br>
