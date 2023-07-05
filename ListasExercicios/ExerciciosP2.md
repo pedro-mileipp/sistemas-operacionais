@@ -403,3 +403,5 @@ Houve 5 page faults
 FILA: *1¹, *2, *3¹, *1¹, *4, 3¹, 1, 2
 
 ```
+
+### **Considerando a string de referência: 7  0  1  2  0  3  0  4  2  3  0  3  2  1  2  0  1  7  0  1. Faça a substituição usando as políticas apresentadas**
