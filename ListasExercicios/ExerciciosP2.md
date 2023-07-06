@@ -460,19 +460,72 @@ FILA. *7, *0¹, *1, *2, *0¹, *3, *4, *0¹, *2¹, *3¹, *0, *2¹, *3, 1, 2, 0
 ```
 
 
+<br>
+<br>
 
 
+### **18. Em    umcomputador,    o    endereço    virtual        é    de    16    bits    e    as    páginas    têm    tamanho    de    2Kb endereços.  O  WSL  (Working  Set  List)  de  um  processo  qualquer  é  de  quatro  páginas.  Inicialmente,  nenhuma  página  está  na  memória  principal.  Um  programa  faz  referência  a  endereços  virtuais  situados nas páginas 0, 7, 2, 7, 5, 8, 9, 2 e 4, nesta ordem.**
+
+### i. Quantos bits do endereço virtual destinam-se ao número da página? E ao deslocamento?
+
+- O endereço é composto por 16 bits e o tamanho da página é 2Kb, (2 x 2^10 = 2^11), portanto o deslocamento tem 11 bits. Como são 16 bits ao total, sobra 5 bits para o número da página
+
+```
+  |-------------|----------------|
+  | Número da   |   Deslocamento |
+  | página      |   dentro da    |
+  | virtual     |    página      |
+  |-------------|----------------|
+  |    5 bits   |    11 bits     |
+```
+
+### i.Ilustre  o  comportamento  da  política  de  substituição  LRU,  mostrando,  a  cada  referência,  quais páginas  estão  em  memória,  os  page  faults  causados  e  as  páginas  escolhidas  para  saírem  da memória. 
+
+```markdown
+# LRU
+
+0  7  2  7  5  8  9  2  4
+
+0  0  0  |  5  5  5  2  2
+   7  7  |  7  7  9  9  9
+      2  |  2  8  8  8  4
+
+Houve 8 page fault
+``` 
 
 
+ <br>
+ <br>
+
+ ### **19.Considere um processo  com  limite  de  páginas  reais  igual  a  quatro  e  um  sistema  que  implemente  a política de substituição FIFO. Quantos page faults ocorrerão considerando que as páginas virtuais são referenciadas na seguinte ordem: 0 1 7 2 3 2 7 1 0 3. Repita o problema utilizando a política LRU.**
 
 
+```markdown
 
+# FIFO
 
+0  1  7  2  3  2  7  1  0  3
+0  0  0  0  3  |  |  |  3  |  
+   1  1  1  1  |  |  |  0  |
+      7  7  7  |  |  |  7  |
+         2  2  |  |  |  2  |
 
+FILA: *0, *1, 7, 2, 3, 0
+Houve 6 page faults
 
+----------------------------------------------
 
- 
+# LRU
 
+0  1  7  2  3  2  7  1  0  3
+0  0  0  0  3  |  |  |  0  0
+   1  1  1  1  |  |  |  1  1
+      7  7  7  |  |  |  7  7
+         2  2  |  |  |  2  3
 
+Houve 7 page faults
 
+```
 
+### **20.Explique porque páginas pequenas podem aumentar a taxa de paginação.**
+- Existe uma relação entre o tamanho da página e o número de operações de E/S que o sistema deverá executar para carregar as páginas da memória secundária para a memória principal. Quanto menor o tamanho da página, maior o número de operações de E/S, aumentando a taxa de paginação. Por outro lado, páginas pequenas oferecem menor fragmentaçaõ interna.
