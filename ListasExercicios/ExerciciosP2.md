@@ -534,4 +534,4 @@ Houve 7 page faults
 
 ### **21.Existe fragmentação em sistemas que implementam gerência de memória virtual? Se existe, que tipo de fragmentação  é  encontrado  em  sistemas  paginados?  Que  tipo  de  fragmentação  é  encontrado  em sistemas com segmentação?**
 
--f
+- O problema da fragmentação existe tanto na gerência de memória virtual por paginação quanto na por segmentação. A fragmentação interna ocorre na memória virtual por paginação na última página, caso não seja totalmente ocupada. A fragmentação  externa  ocorre  na  memória  virtual  por  segmentação  em  função  dos  espaços  livres  deixados  entre segmentos alocados na memória principal. 
