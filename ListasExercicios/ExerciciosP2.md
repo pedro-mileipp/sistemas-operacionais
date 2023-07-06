@@ -535,3 +535,8 @@ Houve 7 page faults
 ### **21.Existe fragmentação em sistemas que implementam gerência de memória virtual? Se existe, que tipo de fragmentação  é  encontrado  em  sistemas  paginados?  Que  tipo  de  fragmentação  é  encontrado  em sistemas com segmentação?**
 
 - O problema da fragmentação existe tanto na gerência de memória virtual por paginação quanto na por segmentação. A fragmentação interna ocorre na memória virtual por paginação na última página, caso não seja totalmente ocupada. A fragmentação  externa  ocorre  na  memória  virtual  por  segmentação  em  função  dos  espaços  livres  deixados  entre segmentos alocados na memória principal. 
+
+<br>
+
+### **Fixação: O que é trashing em sistemas que implementam memória virtual?**
+- Thrashing é consequência  da  excessiva  paginação/segmentação  em  sistemas  que  implementam  memória  virtual, levando o sistema a dedicar mais tempo com operações relacionadas à gerência da memória do que no processamento das aplicações dos usuários.
