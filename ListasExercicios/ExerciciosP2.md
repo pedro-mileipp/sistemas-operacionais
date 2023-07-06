@@ -529,3 +529,9 @@ Houve 7 page faults
 
 ### **20.Explique porque páginas pequenas podem aumentar a taxa de paginação.**
 - Existe uma relação entre o tamanho da página e o número de operações de E/S que o sistema deverá executar para carregar as páginas da memória secundária para a memória principal. Quanto menor o tamanho da página, maior o número de operações de E/S, aumentando a taxa de paginação. Por outro lado, páginas pequenas oferecem menor fragmentaçaõ interna.
+
+<br>
+
+### **21.Existe fragmentação em sistemas que implementam gerência de memória virtual? Se existe, que tipo de fragmentação  é  encontrado  em  sistemas  paginados?  Que  tipo  de  fragmentação  é  encontrado  em sistemas com segmentação?**
+
+-f
