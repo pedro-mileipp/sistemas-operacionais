@@ -540,3 +540,125 @@ Houve 7 page faults
 
 ### **Fixação: O que é trashing em sistemas que implementam memória virtual?**
 - Thrashing é consequência  da  excessiva  paginação/segmentação  em  sistemas  que  implementam  memória  virtual, levando o sistema a dedicar mais tempo com operações relacionadas à gerência da memória do que no processamento das aplicações dos usuários.
+- Quando o sistema gasta a maior parte do tempo fazendo
+swapping, ocorre um problema conhecido como thrashing.
+
+<br>
+
+### **22. Como os arquivos podem ser estruturados?**
+- Existem 3 maneiras: sequência de bytes, sequência de registros e árvores. A forma mais simples de organização de arquivos é através de uma sequência não-estruturada de bytes, na qual o sistema de arquivos não impõe nenhuma estrutura lógica para os dados. Qualquer significado e organização deve ser imposto pelos programas de usuários. Oferece máxima flexibilidade.
+- Na sequência de registros, o arquivo é visto como uma sequência de registros de tamanho fixo. A ideia central é que a operação de leitura retorna um registro e a operação de escrita sobrepõe ou anexa um registro. Antigamente, na época do cartão perfurado de 80 colunas, muitos sistemas de arquivos trabalhavam com sequência de registros de 80 caracteres, correspondente às imagens dos cartões. Sistemas de propósito geral não usam mais este tipo de modelo.
+- Na estrutura em árvore um arquivo é constituído  por  uma  árvore  de  registros,  que  podem  possuir  tamanhos diferentes. Cada registro contém um campo chave para que a busca seja mais rápida. Pouco usada.
+
+
+<br>
+
+### **23.Quais as diferentes formas de implementação de uma estrutura de diretórios?**
+- Estrutura de diretório de nível único, com dois níveis e em árvore
+
+<br>
+
+### **24.O  que  é  alocação  contígua  de  blocos  e  quais  benefícios  a  desfragmentação  pode  proporcionar  quando esta técnica é utilizada?** 
+- A  alocação  contígua  consiste  em  armazenar  um  arquivo  em  blocos  sequencialmente  dispostos  no  disco.  É uma estratégia de simples implementação e de bom desempenho. Porém, com o tempo, quando os arquivos vão sendo removidos  são  deixadas  lacunas  de  blocos  livres.  A  desfragmentação    pode    solucionar    o    problema    da  fragmentação  reorganizando  todos os  arquivos  no  disco  de  maneira que só exista um único segmento de blocos livres.
+
+<br>
+
+### **25.Em uma aplicação concorrente  que  controla  saldo  bancário  em  contas  correntes,  dois  processos compartilham  uma  região  de  memória  onde  estão  armazenados  os  saldos  dos  clientes  A  e  B.  Os processos executam, concorrentemente os seguintes passos:**
+
+```go
+// Processo 1 (Cliente A)
+
+/* saque em A */
+x := saldo_A; // 1a  
+x := x - 200; // 1b
+saldo_A := x; // 1c
+
+/* deposito em B */
+x := saldo_B; // 1d)  
+x := x + 100; // 1e) 
+saldo_B := x; // 1f) 
+
+
+// Processo 2
+
+/*saque em A */
+y := saldo_A; // 2a) 
+y := y - 100; // 2b) 
+saldo_A := y; // 2c) 
+
+/* deposito em B */ 
+y := saldo_B; // 2d)  
+y := y + 200; // 2e)  
+saldo_B := y; // 2f) 
+``` 
+
+<br>
+
+### **Supondo  que  os  valores  dos  saldos  de  A  e  B  sejam,  respectivamente,  500  e  900,  antes  dos  processos executarem, pede-se:**
+
+<br>
+
+### a) Quais os valores corretos para os saldos dos clientes A e B após a execução dos processos?
+
+- Para o processo 1, saque em A: o saldo_A será decrescido de 200, portanto 500 - 200 = 300.
+- Processo 1, depósito em B: o saldo_B será acrescido em 100, portanto 900 + 100 = 1000;
+- Processo 2, saque em A: Devido ao saque no processo 1, o saldo_A está com valor de 300 e no processo 2 irá ser sacado (decrescido) 100. Portanto, 300 - 100 = 200;
+- Processo 2, depósito em B: Devido ao depósito no processo 1, o valor de saldo_B está com valor de 1000 e no processo 2 irá ser depositado (acrescido) 200. Portant, 1000 + 200 = 1200.
+- Ou seja, no final A = 200 e B = 1200.
+
+<br>
+
+### b) Quais os valores finais dos saldos dos clientes se a sequência de execução das operações for: 1a, 2a, 1b, 2b, 1c, 2c, 1d, 2d, 1e, 2e, 1f, 2f?
+
+- 1a -> x recebe o saldo_A; x = 500
+- 2a -> y recebe o saldo_A; y = 500
+- 1b -> x é decrementado de 200; x = 300
+- 2b -> y é decrementado de 100; y = 400
+- 1c -> saldo_A recebe x; saldo_A = 300
+- 2c -> salado_A recebe y; saldo_A = 400 ==> valor final de A
+- 1d -> x recebe o saldo_B; x = 900
+- 2d -> y recebe o saldo_B; y = 900
+- 1e -> x é incrementado de 100; x = 1000
+- 2e -> y é incrementado de 200; y = 1100
+- 1f -> saldo_B recebe x; saldo_B = 1000
+- 2f -> saldo_B recebe y; saldo_B = 1100 ==> valor final de B
+
+<br>
+
+### c) Utilizando  semáforos,  proponha  uma  solução  que  garanta  a  integridade  dos  saldos  e  permita  o  maior compartilhamento  possível  dos  recursos  entre  os  processos,  não  esquecendo  a  especificação  da inicialização dos semáforos.
+
+
+```go
+// Processo 1 (Cliente A)
+
+/* saque em A */
+Down(S1) // verifica se a RC não está sendo utilizada
+x := saldo_A; // 1a  
+x := x - 200; // 1b
+saldo_A := x; // 1c
+Up(S1)
+
+/* deposito em B */
+Down(S2)
+x := saldo_B; // 1d)  
+x := x + 100; // 1e) 
+saldo_B := x; // 1f) 
+Up(S2)
+
+
+// Processo 2
+
+/*saque em A */
+Down(S1)
+y := saldo_A; // 2a) 
+y := y - 100; // 2b) 
+saldo_A := y; // 2c) 
+Up(S1)
+
+Down(S1)
+/* deposito em B */ 
+y := saldo_B; // 2d)  
+y := y + 200; // 2e)  
+saldo_B := y; // 2f) 
+Up(S1)
+``` 
